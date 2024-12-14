@@ -9,9 +9,24 @@ class ProgressBar extends StatefulWidget {
 }
 
 class _ProgressBarState extends State<ProgressBar> {
+  final List<String> monthNames = [
+    'January', 'February', 'March', 'April',
+    'May', 'June', 'July', 'August',
+    'September', 'October', 'November', 'December'
+  ];
   double percentage = 80;
+  // String month = '';
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+
+    });
+  }
   @override
   Widget build(BuildContext context) {
+    String month = monthNames[DateTime.now().month-1].substring(0,3);
+
     double heightMultiplier = (MediaQuery.of(context).size.height) / 852;
     double widthMultiplier = (MediaQuery.of(context).size.width) / 393;
     return Container(
@@ -83,7 +98,11 @@ class _ProgressBarState extends State<ProgressBar> {
                               ),
 
                             ),
-                            SizedBox(height: 40*heightMultiplier,)
+                            Text(month,
+                            style: GoogleFonts.poppins(
+                              color: Colors.black
+                            ),),
+                            SizedBox(height: 25*heightMultiplier,)
                           ],
                         ),
                         radius: 45,

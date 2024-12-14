@@ -28,6 +28,95 @@ class _HomeScreenState extends State<HomeScreen> {
     double widthMultiplier = (MediaQuery.of(context).size.width) / 393;
     return Scaffold(
       backgroundColor: Colors.white,
+      bottomNavigationBar: Container(
+        height: 100,
+        width: 393*widthMultiplier,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+              topRight: Radius.circular(15),
+              topLeft: Radius.circular(15)
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Color(0xFF000000).withAlpha(70),
+              blurRadius: 5,
+              spreadRadius: 2
+        )
+          ],
+        ),
+
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  onPressed: (){},
+                  icon: Icon(
+                    Icons.home_outlined
+                  ),
+                  color: Colors.black,
+                ),
+                Text('Home')
+              ],
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  onPressed: (){},
+                  icon: Icon(
+                      Icons.home_outlined
+                  ),
+                  color: Colors.black,
+                ),
+                Text('Home')
+              ],
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  onPressed: (){},
+                  icon: Icon(
+                      Icons.home_outlined
+                  ),
+                  color: Colors.black,
+                ),
+                Text('Home')
+              ],
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  onPressed: (){},
+                  icon: Icon(
+                      Icons.home_outlined
+                  ),
+                  color: Colors.black,
+                ),
+                Text('Home')
+              ],
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  onPressed: (){},
+                  icon: Icon(
+                      Icons.home_outlined
+                  ),
+                  color: Colors.black,
+                ),
+                Text('Home')
+              ],
+            ),
+          ],
+        ),
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -36,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           CustomAppBar(),
           SizedBox(
-            height: 40 * heightMultiplier,
+            height: 25 * heightMultiplier,
           ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,

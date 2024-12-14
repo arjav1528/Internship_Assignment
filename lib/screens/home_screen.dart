@@ -1,4 +1,5 @@
 import 'package:assignment1/widgets/appbar.dart';
+import 'package:assignment1/widgets/progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -34,6 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
           CustomAppBar(),
           SizedBox(height: 40*heightMultiplier,),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
                 width: 189*widthMultiplier,
@@ -96,6 +98,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                 ),
               ),
+              SizedBox(width: 15*widthMultiplier,),
+              Column(
+                children: [
+                  SizedBox(height: 40*heightMultiplier,),
+                  ProgressBar()
+                ],
+              )
 
             ],
           )

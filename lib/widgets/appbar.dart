@@ -1,16 +1,23 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:assignment1/screens/home_screen.dart';
+import 'package:assignment1/providers/day_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class CustomAppBar extends StatelessWidget {
-  bool day;
-  CustomAppBar({super.key, required this.day});
+class CustomAppBar extends ConsumerStatefulWidget {
+  // bool day;
+  const CustomAppBar({super.key});
 
   @override
+  ConsumerState<CustomAppBar> createState() => _CustomAppBarState();
+}
+
+class _CustomAppBarState extends ConsumerState<CustomAppBar> {
+  @override
   Widget build(BuildContext context) {
+    final day = ref.watch(dayNotifier);
     double heightMultiplier = (MediaQuery.of(context).size.height) / 852;
     double widthMultiplier = (MediaQuery.of(context).size.width) / 393;
     return Row(
@@ -59,26 +66,12 @@ class CustomAppBar extends StatelessWidget {
                 )
               ]
             ),
-            child: GestureDetector(
-              onTap: (){
-                Navigator.pushReplacement(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (context,animation,secondartAnimation)=> HomeScreen(day: !day),
-                    transitionDuration: Duration.zero,
-                    reverseTransitionDuration: Duration.zero
-                  )
-
-                );
-
-              },
-              child: CircleAvatar(
-                backgroundColor: day ? Colors.white : Color(0xFF111029),
-                radius: 22*heightMultiplier,
-                child: Icon(
-                  CupertinoIcons.bell,
-                  color: day ? Colors.black : Colors.white,
-                ),
+            child: CircleAvatar(
+              backgroundColor: day ? Colors.white : Color(0xFF111029),
+              radius: 22*heightMultiplier,
+              child: Icon(
+                CupertinoIcons.bell,
+                color: day ? Colors.black : Colors.white,
               ),
             ),
           ),
@@ -98,15 +91,19 @@ class CustomAppBar extends StatelessWidget {
             ),
             child: GestureDetector(
               onTap: (){
-                Navigator.pushReplacement(
-                    context,
-                    PageRouteBuilder(
-                        pageBuilder: (context,animation,secondartAnimation)=> HomeScreen(day: !day),
-                        transitionDuration: Duration.zero,
-                        reverseTransitionDuration: Duration.zero
-                    )
-
-                );
+                // Navigator.pushReplacement(
+                //     context,
+                //     PageRouteBuilder(
+                //         pageBuilder: (context,animation,secondartAnimation)=> HomeScreen(day: !day),
+                //         transitionDuration: Duration.zero,
+                //         reverseTransitionDuration: Duration.zero
+                //     )
+                //
+                // );
+                setState(() {
+                  ref.read(dayNotifier.notifier)
+                      .changeDay(day);
+                });
 
               },
               child: CircleAvatar(

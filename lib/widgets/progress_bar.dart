@@ -1,19 +1,19 @@
 // ignore_for_file: must_be_immutable, no_logic_in_create_state
 
+import 'package:assignment1/providers/day_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-class ProgressBar extends StatefulWidget {
-  bool day;
-  ProgressBar({super.key, required this.day});
+class ProgressBar extends ConsumerStatefulWidget {
+  const ProgressBar({super.key});
   @override
-  State<ProgressBar> createState() => _ProgressBarState(day: day);
+  ConsumerState<ProgressBar> createState() => _ProgressBarState();
 }
 
-class _ProgressBarState extends State<ProgressBar> {
-  bool day;
-  _ProgressBarState({required this.day});
+class _ProgressBarState extends ConsumerState<ProgressBar> {
+  
   final List<String> monthNames = [
     'January', 'February', 'March', 'April',
     'May', 'June', 'July', 'August',
@@ -24,12 +24,10 @@ class _ProgressBarState extends State<ProgressBar> {
   @override
   void initState() {
     super.initState();
-    setState(() {
-
-    });
   }
   @override
   Widget build(BuildContext context) {
+    final day = ref.watch(dayNotifier);
     String month = monthNames[DateTime.now().month-1].substring(0,3);
 
     double heightMultiplier = (MediaQuery.of(context).size.height) / 852;

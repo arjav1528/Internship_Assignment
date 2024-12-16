@@ -1,27 +1,27 @@
 // ignore_for_file: no_logic_in_create_state, must_be_immutable
 
+import 'package:assignment1/providers/day_provider.dart';
 import 'package:assignment1/widgets/appbar.dart';
 import 'package:assignment1/widgets/calender.dart';
 import 'package:assignment1/widgets/navbar.dart';
 import 'package:assignment1/widgets/progress_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 
-import '../event_carousel.dart';
+import '../widgets/event_carousel.dart';
 
 
-class HomeScreen extends StatefulWidget {
-  bool day;
-  HomeScreen({super.key, required this.day});
+class HomeScreen extends ConsumerStatefulWidget {
+
+  const HomeScreen({super.key,});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState(day: day);
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  bool day;
-  _HomeScreenState({required this.day});
+class _HomeScreenState extends ConsumerState<HomeScreen> {
   Map<String, bool> _map = {};
 
   @override
@@ -41,6 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final day = ref.watch(dayNotifier);
     double heightMultiplier = (MediaQuery.of(context).size.height) / 852;
     double widthMultiplier = (MediaQuery.of(context).size.width) / 393;
     return Scaffold(
@@ -54,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 45 * heightMultiplier,
 
             ),
-            CustomAppBar(day: day,),
+            CustomAppBar(),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -145,9 +146,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(
                       height: 40 * heightMultiplier,
                     ),
-                    ProgressBar(day: day,),
+                    ProgressBar(),
                     SizedBox(height: 10*heightMultiplier,),
-                    Calender(day: day,),
+                    Calender(),
 
                     // SizedBox(height: 20,),
 
@@ -164,7 +165,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: Navbar(day: day,),
+      bottomNavigationBar: Navbar(),
     );
   }
 }

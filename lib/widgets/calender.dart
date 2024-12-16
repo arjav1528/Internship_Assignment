@@ -1,21 +1,20 @@
 // ignore_for_file: must_be_immutable, no_logic_in_create_state
 
+import 'package:assignment1/providers/day_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 
-class Calender extends StatefulWidget {
-  bool day;
-  Calender({super.key, required this.day});
+class Calender extends ConsumerStatefulWidget {
+  const Calender({super.key});
   // const Calender({super.key});
 
   @override
-  State<Calender> createState() => _CalenderState(day: day);
+  ConsumerState<Calender> createState() => _CalenderState();
 }
 
-class _CalenderState extends State<Calender> {
-  bool day;
-  _CalenderState({required this.day});
+class _CalenderState extends ConsumerState<Calender> {
   final List<String> monthNames = [
     'January', 'February', 'March', 'April',
     'May', 'June', 'July', 'August',
@@ -31,6 +30,7 @@ class _CalenderState extends State<Calender> {
   }
   @override
   Widget build(BuildContext context) {
+    final day = ref.watch(dayNotifier);
 
     double heightMultiplier = (MediaQuery.of(context).size.height) / 852;
     double widthMultiplier = (MediaQuery.of(context).size.width) / 393;

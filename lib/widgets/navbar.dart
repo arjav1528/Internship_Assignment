@@ -1,19 +1,19 @@
 // ignore_for_file: no_logic_in_create_state, must_be_immutable
 
+import 'package:assignment1/providers/day_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-class Navbar extends StatefulWidget {
-  bool day;
-  Navbar({super.key, required this.day});
+class Navbar extends ConsumerStatefulWidget {
+  const Navbar({super.key});
 
   @override
-  State<Navbar> createState() => _NavbarState(day: day);
+  ConsumerState<Navbar> createState() => _NavbarState();
 }
 
-class _NavbarState extends State<Navbar> {
-  bool day;
-  _NavbarState({required this.day});
+class _NavbarState extends ConsumerState<Navbar> {
+
   Map<String,bool> navBar = {
     'Home' : false,
     'Cash Flow' : false,
@@ -23,6 +23,7 @@ class _NavbarState extends State<Navbar> {
   };
   @override
   Widget build(BuildContext context) {
+    final day = ref.watch(dayNotifier);
     double heightMultiplier = (MediaQuery.of(context).size.height) / 852;
     double widthMultiplier = (MediaQuery.of(context).size.width) / 393;
     return Container(

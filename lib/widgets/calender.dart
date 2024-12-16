@@ -1,14 +1,19 @@
+// ignore_for_file: must_be_immutable, no_logic_in_create_state
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:gradient_borders/gradient_borders.dart';
 
 class Calender extends StatefulWidget {
-  const Calender({super.key});
-
+  bool day;
+  Calender({super.key, required this.day});
   @override
-  State<Calender> createState() => _CalenderState();
+  State<Calender> createState() => _CalenderState(day: day);
 }
 
 class _CalenderState extends State<Calender> {
+  bool day;
+  _CalenderState({required this.day});
   final List<String> monthNames = [
     'January', 'February', 'March', 'April',
     'May', 'June', 'July', 'August',
@@ -28,23 +33,28 @@ class _CalenderState extends State<Calender> {
     double heightMultiplier = (MediaQuery.of(context).size.height) / 852;
     double widthMultiplier = (MediaQuery.of(context).size.width) / 393;
     return Container(
-      height: 150 * heightMultiplier,
+      height: 138 * heightMultiplier,
       width: 180 * widthMultiplier,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: Colors.white,
+        color: day ? Colors.white : Color(0xFF111029),
         boxShadow: [
           BoxShadow(
               spreadRadius: 1,
               blurRadius: 5,
               color: Color(0xFF000000).withAlpha(40)
           )
-        ]
+        ],
+        border: GradientBoxBorder(
+            gradient: LinearGradient(
+                colors: day ? [Colors.transparent, Colors.transparent] : [Color(0xFF695CFF),Color(0xFFA7A0F8)]
+            )
+        )
       ),
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.only(left: 10*widthMultiplier,top: 15*heightMultiplier),
+            padding: EdgeInsets.only(left: 10*widthMultiplier,top: 10*heightMultiplier),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -63,8 +73,9 @@ class _CalenderState extends State<Calender> {
                     Text(monthNames[now.month - 1],
                     style: GoogleFonts.poppins(
                       fontSize: 14,
+                      color: day ? Colors.black : Colors.white
                     ),),
-                    Text('Days Remaining',
+                    Text('${totalDays-(DateTime.now().day)} Days Remaining',
                     style: GoogleFonts.poppins(
                       fontSize: 10,
                       color: Color(0xFFA0AEC0)
@@ -75,9 +86,9 @@ class _CalenderState extends State<Calender> {
             ),
           ),
           Transform.translate(
-            offset: Offset(0, -10),
+            offset: Offset(0, -20*widthMultiplier),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5),
+              padding: const EdgeInsets.symmetric(horizontal: 8*Checkbox.width),
               child: GridView.builder(
                 shrinkWrap: true,
                 itemCount: totalDays,

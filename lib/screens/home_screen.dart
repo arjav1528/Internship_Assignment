@@ -52,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             SizedBox(
               height: 45 * heightMultiplier,
-        
+
             ),
             CustomAppBar(day: day,),
             Row(
@@ -140,7 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: 15 * widthMultiplier,
                 ),
                 Column(
-        
+
                   children: [
                     SizedBox(
                       height: 40 * heightMultiplier,
@@ -148,9 +148,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ProgressBar(day: day,),
                     SizedBox(height: 10*heightMultiplier,),
                     Calender(day: day,),
-        
+
                     // SizedBox(height: 20,),
-        
+
                   ],
                 )
               ],

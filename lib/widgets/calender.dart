@@ -45,8 +45,14 @@ class _CalenderState extends State<Calender> {
               gradient: LinearGradient(
                   colors: day ? [Colors.transparent, Colors.transparent] : [Color(0xFF695CFF),Color(0xFFA7A0F8)]
               )
-          )
-        ]
+          ),
+          boxShadow: [
+            BoxShadow(
+                spreadRadius: 1,
+                blurRadius: 5,
+                color: Color(0xFF000000).withAlpha(40)
+            )
+          ]
       ),
       child: Column(
         children: [

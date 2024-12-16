@@ -1,20 +1,25 @@
+// ignore_for_file: must_be_immutable, no_logic_in_create_state
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 class ProgressBar extends StatefulWidget {
-  const ProgressBar({super.key});
-
+  bool day;
+  ProgressBar({super.key, required this.day});
   @override
-  State<ProgressBar> createState() => _ProgressBarState();
+  State<ProgressBar> createState() => _ProgressBarState(day: day);
 }
 
 class _ProgressBarState extends State<ProgressBar> {
+  bool day;
+  _ProgressBarState({required this.day});
   final List<String> monthNames = [
     'January', 'February', 'March', 'April',
     'May', 'June', 'July', 'August',
     'September', 'October', 'November', 'December'
   ];
-  double percentage = 80;
+  double percentage = 50;
   // String month = '';
   @override
   void initState() {
@@ -34,7 +39,12 @@ class _ProgressBarState extends State<ProgressBar> {
       width: 180*widthMultiplier,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: Colors.white,
+        color: day ? Colors.white : Color(0xFF111029),
+        border: GradientBoxBorder(
+          gradient: LinearGradient(
+            colors: day ? [Colors.transparent, Colors.transparent] : [Color(0xFF695CFF),Color(0xFFA7A0F8)]
+          )
+        ),
         boxShadow: [
           BoxShadow(
               spreadRadius: 1,
@@ -48,16 +58,17 @@ class _ProgressBarState extends State<ProgressBar> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.only(left: 7*widthMultiplier,top: 6*heightMultiplier),
+            padding: EdgeInsets.only(left: 15*widthMultiplier,top: 10*heightMultiplier),
             child: Text('Daily Progress',
             style: GoogleFonts.poppins(
-              fontWeight: FontWeight.w700
+              fontWeight: FontWeight.w700,
+              color: day ? Colors.black : Colors.white
               // fontSize:,
 
             ),),
           ),
           Padding(
-            padding: EdgeInsets.only(top: 4*heightMultiplier,left: 9*widthMultiplier),
+            padding: EdgeInsets.only(top: 4*heightMultiplier,left: 15*widthMultiplier),
             child: Text('From all projects',
             style: GoogleFonts.poppins(
               fontSize: 12,
@@ -90,7 +101,7 @@ class _ProgressBarState extends State<ProgressBar> {
 
                               ),
                               child: Center(
-                                  child: Text('16',
+                                  child: Text(DateTime.now().day.toString(),
                                   style: GoogleFonts.poppins(
                                     fontSize: 8,
                                     color: Colors.white
@@ -100,7 +111,8 @@ class _ProgressBarState extends State<ProgressBar> {
                             ),
                             Text(month,
                             style: GoogleFonts.poppins(
-                              color: Colors.black
+                              color: day ? Colors.black : Colors.white,
+                              fontSize: 8
                             ),),
                             SizedBox(height: 25*heightMultiplier,)
                           ],
@@ -118,9 +130,9 @@ class _ProgressBarState extends State<ProgressBar> {
                 ),
               ),
               Positioned(
-                bottom: 5,
-                left: 10,
-                right: 10,
+                bottom: 5*heightMultiplier,
+                left: 10*widthMultiplier,
+                right: 10*widthMultiplier,
                 child: Container(
                   height: 55*heightMultiplier,
                   width: 165*widthMultiplier,

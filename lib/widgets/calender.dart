@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 
 class Calender extends StatefulWidget {
-  const Calender({super.key});
+  bool day;
+  Calender({super.key, required this.day});
+  // const Calender({super.key});
 
   @override
-  State<Calender> createState() => _CalenderState();
+  State<Calender> createState() => _CalenderState(day: day);
 }
 
 class _CalenderState extends State<Calender> {
+  bool day;
+  _CalenderState({required this.day});
   final List<String> monthNames = [
     'January', 'February', 'March', 'April',
     'May', 'June', 'July', 'August',
@@ -28,23 +33,22 @@ class _CalenderState extends State<Calender> {
     double heightMultiplier = (MediaQuery.of(context).size.height) / 852;
     double widthMultiplier = (MediaQuery.of(context).size.width) / 393;
     return Container(
+
       height: 150 * heightMultiplier,
       width: 180 * widthMultiplier,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-              spreadRadius: 1,
-              blurRadius: 5,
-              color: Color(0xFF000000).withAlpha(40)
+          borderRadius: BorderRadius.circular(15),
+          color: day ? Colors.white : Color(0xFF111029),
+          border: GradientBoxBorder(
+              gradient: LinearGradient(
+                  colors: day ? [Colors.transparent, Colors.transparent] : [Color(0xFF695CFF),Color(0xFFA7A0F8)]
+              )
           )
-        ]
       ),
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.only(left: 10*widthMultiplier,top: 15*heightMultiplier),
+            padding: EdgeInsets.only(left: 10*widthMultiplier,top: 10*heightMultiplier),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -61,30 +65,31 @@ class _CalenderState extends State<Calender> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(monthNames[now.month - 1],
-                    style: GoogleFonts.poppins(
-                      fontSize: 14,
-                    ),),
+                      style: GoogleFonts.poppins(
+                        fontSize: 14,
+                        color: day ? Colors.black : Colors.white
+                      ),),
                     Text('Days Remaining',
-                    style: GoogleFonts.poppins(
-                      fontSize: 10,
-                      color: Color(0xFFA0AEC0)
-                    ),)
+                      style: GoogleFonts.poppins(
+                          fontSize: 10,
+                          color: Color(0xFFA0AEC0)
+                      ),)
                   ],
                 )
               ],
             ),
           ),
           Transform.translate(
-            offset: Offset(0, -10),
+            offset: Offset(0, -10*widthMultiplier),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5),
+              padding: EdgeInsets.symmetric(horizontal: 10*widthMultiplier),
               child: GridView.builder(
                 shrinkWrap: true,
                 itemCount: totalDays,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 12,
-                  crossAxisSpacing: 4,
-                  mainAxisSpacing: 7
+                    crossAxisCount: 12,
+                    crossAxisSpacing: 4,
+                    mainAxisSpacing: 7
                 ),
                 itemBuilder: (context,index){
                   bool isHighlited = true;
@@ -93,12 +98,12 @@ class _CalenderState extends State<Calender> {
                   }
                   return Container(
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                        colors: isHighlited ? [Color(0xFF695CFF),Color(0xFFA7A0F8)] : [Color(0xFFD9D9D9),Color(0xFFD9D9D9)]
-                      ),
-                      shape: BoxShape.circle
+                        gradient: LinearGradient(
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                            colors: isHighlited ? [Color(0xFF695CFF),Color(0xFFA7A0F8)] : [Color(0xFFD9D9D9),Color(0xFFD9D9D9)]
+                        ),
+                        shape: BoxShape.circle
                     ),
                   );
                 },
